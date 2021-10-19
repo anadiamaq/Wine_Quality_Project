@@ -2,7 +2,9 @@
 
 Wine-drinkers usually agree that wines may be ranked by quality, but it's known wine-tasting is mainly subjective. There are many attempts to construct a more methodical way to find out the wine's quality. In this project, I propose a method of assessing wine quality using a neural network and test it against the wine-quality dataset from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/wine+quality).
 
-![wine-gif](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/wine.gif)
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/wine.gif" width="576" height="417" border="10"/>
+</p>
 
 ## Wine Data :wine_glass:
 
@@ -18,20 +20,28 @@ For evaluation purposes, an ordinary least squares (OLS) regression is performed
 
 In the following tables, several metrics are evaluated, but only the p-value (p <0.05) is taken into account when selecting or not the different variables or inputs that will be used in the regression algorithms and in the neural network.
 
+In the same way, the metric R-squared is a statistical measure that represents how a dependent variable is explained by a independent varibale or a group of independent variables in a regression model, as in this case. Thereby, for red wine dataset, the quality variable in red wine is explained in 0.36 points and, in the white wine dataset, by 0.28 points.
+
+Other important value in theses tables is the regression coefficient (coef). This statistical measure estimates the change in the mean response per unit increase in X (independet variables) when the rest of variables are held constant. For instance, if volatile acidity  increases by 1, and all other variables don't change, quality variable (dependent variable) decreases by about 1.86 on average. Also, if p-value is less than 0.05 for that variable, the relationship between the predictor and the response is statistically significant, which means that variable has a role in the wine quality.
+
 ![OLS Regression Results for red wines](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/Mult_regression_redwine.png)
-The multiple regression for red wine variables shows that volatile acidity, chlorides, free sulfur dioxide, total sulfur dioxide, pH, sulphates and alcohol are de independent variables related to wine quality in red wines.
+###### OLS Regression Results for red wines
 
 ![OLS Regression Results for white wines](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/Mult_regression_whitewine.png)
-The multiple regression for white wine variables shows that fixed acidity, volatile acidity, residual sugar, free sulfur dioxide, pH, sulphates and alcohol are de independent variables realated to wine quality in white wines.
+###### OLS Regression Results for white wines
+
+### Conclusion
+
+These results show that not all independent variables are releated to wine quality. What's more, the releated independent variables are different in each dataset. For red wine, volatile acidity, chlorides, free sulfur dioxide, total sulfur dioxide, pH, sulphates and alcohol are the independent variables related to wine quality. While, fixed acidity, volatile acidity, residual sugar, free sulfur dioxide, pH, sulphates and alcohol are the independent variables realated to wine quality in white wines.
 
 ## Regression Algorithms
 
 Due to these results, when selecting the variables to create a ML model or another, only variables with a p-value lower than 0.05 were taken into account. The regression algorithms applied on the data set, on the one hand the red wine and on the other the white wine, are Random Forest Regressor (RFR), KNeighbors Regressor (KNR) and Epsilon-Support Vector Regression (SVR). 
-In all cases, the data was standardize by removing the mean and scaling to unit variance with the `StandardScaler()` from sklearn.
-After each regression algorithm, a cross validation analysis was carried out to extract two different errors, the mean squared error and r2 score or coefficient of determination.
+In all cases, the data was standardize by removing the mean and scaling to unit variance with the `StandardScaler()` from sklearn library.
+After each regression algorithm, a cross validation analysis was carried out to extract two different errors, the mean squared error (mse) and r2 score or R-squared (explained above). MSE is the most used evaluation criterion for regression problems, especially in supervised machine learning.
 
 ### Random Forest Regressor
-The Random Forest Regressor is a Emsemble method that combines predictions from multiple ML algorithms which means a more accurate predictions than any individual model.
+The Random Forest Regressor is an Emsemble method that combines predictions from multiple ML algorithms which means a more accurate predictions than any individual model.
 
 ### KNeighbors Regressor
 KNeighbors Regressor can be used when data labels are continuous rather than discrete variables, as in this case. This simple algorithm stores all available cases and predict the numerical target based on a similarity measure.
@@ -41,11 +51,46 @@ Although Support Vector Machines aren't well known in regression problems but, i
 
 ![Error table](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/error_table_ML.png)
 
-Just looking at these results, it could be determined that for both the red wine and white wine datasets, the best regression algorithm is Random Forest Regressor.
+### Conclusion
+
+Just looking at these results, it could be determined that for both the red wine and white wine datasets, the best regression algorithm is Random Forest Regressor. In both cases, mse has the lowest value, while r2 has the value closest to 1.
+
+## Neural Network 
+
+### Preprocessing
+
+The final method to predict wine's quality is a Supervised Neural Network. Firstly, I tried two different NN's, one for the red wine dataset and another for the white one. But, how statistical metrics seem to be worse (how we can see in the table below), I decided to create just one model with both datasets together.
+
+![NN Error table](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/NN_error.png)
+
+To start, a preprocessing of the data is necessary. In this way, a `LabelEncoder()` function was executed on the variable "type", created prior to the union of the two datasets. After that, all the data were standardized with the `StandardScaler()` function. This function of the Sklearn library standardizes the data by eliminating the mean and scaling the data so that its variance is equal to 1. Otherwise, the data would be too disparate for the neural network to train.
+
+### The Model
+
+`model = Sequential()`
+`model.add(Dense(12, activation='relu', input_shape=(12,),kernel_regularizer=regularizers.l2(0.01)))`
+`model.add(Dense(7, activation='relu'))`
+`model.add(Dense(1, activation='relu'))`
+
+The code above is the Neural Network Model used to compile and fit the model which predicts the wine quality. It is a sequential type model. This kind of model is appropriate when layers go one after the other as in this case. Firstly, I added a `Dense` layer with 12 nodes, that correspond to the 12 inputs (the 12 independent variables). Usually, the number of nodes that makes up the input layer must be equal to the number of features (columns) in the data. Nevertheless, we can add one additional node for a bias term, but not in this model.
+
+The output layer has a single node because this NN is a regressor and I just expect a value, the quality. The number of nodes in the hidden layer is the mean between the nodes in the input layer and in the output layer.
+
+Returning to the use of the Dense layer, I decided use it in all the layers due to the lack of data. Beside I united two diffenrent datasets, the number of values are not enough to get good results. Dense layers have the quality of tightly joining their nodes with the nodes of the previous layer. The following image is a representation of how nodes are connected in this model.
+
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/NNmodel_rep.png" width="836" height="765" border="10"/>
+</p>
+
+Another characteristic of this model is the presence of regularizers in the input layer. regularizers apply constraints to the parameters of the layer or activity during their optimization and add it to the loss function.
+
+Finally, this model has in all its layers with ReLU-type activation functions. The rectified linear activation function or ReLU is a function that will output the input directly if it is positive, otherwise, it will output zero. This makes the model easier to train and often achieves better performance.
 
 ## References
 
-1. Er, Y., & Atasoy, A. (2016). The classification of white wine and red wine according to their physicochemical qualities. International Journal of Intelligent Systems and Applications in Engineering, 23-26.
-2. Gupta, Y. (2018). Selection of important features and predicting wine quality using machine learning techniques. Procedia Computer Science, 125, 305-312.
-3. Lee, S., Park, J., & Kang, K. (2015, September). Assessing wine quality using a decision tree. In 2015 IEEE International Symposium on Systems Engineering (ISSE) (pp. 176-178). IEEE.
-4. P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
+1. [Comp.ai.neural-nets FAQ.](http://www.faqs.org/faqs/ai-faq/neural-nets/part1/preamble.html) 
+2. Er, Y., & Atasoy, A. (2016). The classification of white wine and red wine according to their physicochemical qualities. International Journal of Intelligent Systems and Applications in Engineering, 23-26. Available in: [https://www.ijisae.org/IJISAE/article/view/914](https://www.ijisae.org/IJISAE/article/view/914)
+3. Gupta, Y. (2018). Selection of important features and predicting wine quality using machine learning techniques. Procedia Computer Science, 125, 305-312. Available in: [https://www.sciencedirect.com/science/article/pii/S1877050917328053](https://www.sciencedirect.com/science/article/pii/S1877050917328053)
+4. Lee, S., Park, J., & Kang, K. (2015, September). Assessing wine quality using a decision tree. In 2015 IEEE International Symposium on Systems Engineering (ISSE) (pp. 176-178). IEEE. Available in: [https://ieeexplore.ieee.org/abstract/document/7302752](https://ieeexplore.ieee.org/abstract/document/7302752)
+5. P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009. Available in: [https://archive.ics.uci.edu/ml/datasets/wine+quality](https://archive.ics.uci.edu/ml/datasets/wine+quality)
+6. Scikit-learn: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011. Available in: [https://scikit-learn.org/stable/user_guide.html](https://scikit-learn.org/stable/user_guide.html)
