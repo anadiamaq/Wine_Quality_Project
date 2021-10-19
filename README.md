@@ -67,10 +67,12 @@ To start, a preprocessing of the data is necessary. In this way, a `LabelEncoder
 
 ### The Model
 
-`model = Sequential()`
-`model.add(Dense(12, activation='relu', input_shape=(12,),kernel_regularizer=regularizers.l2(0.01)))`
-`model.add(Dense(7, activation='relu'))`
-`model.add(Dense(1, activation='relu'))`
+```
+model = Sequential()
+model.add(Dense(12, activation='relu', input_shape=(12,),kernel_regularizer=regularizers.l2(0.01)))
+model.add(Dense(7, activation='relu'))
+model.add(Dense(1, activation='relu'))
+```
 
 The code above is the Neural Network Model used to compile and fit the model which predicts the wine quality. It is a sequential type model. This kind of model is appropriate when layers go one after the other as in this case. Firstly, I added a `Dense` layer with 12 nodes, that correspond to the 12 inputs (the 12 independent variables). Usually, the number of nodes that makes up the input layer must be equal to the number of features (columns) in the data. Nevertheless, we can add one additional node for a bias term, but not in this model.
 
