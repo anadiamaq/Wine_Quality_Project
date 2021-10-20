@@ -1,10 +1,28 @@
-# Wine Quality Project
+<h1 align="center">
+  Wine Quality Project
+</h1>
 
 Wine-drinkers usually agree that wines may be ranked by quality, but it's known wine-tasting is mainly subjective. There are many attempts to construct a more methodical way to find out the wine's quality. In this project, I propose a method of assessing wine quality using a neural network and test it against the wine-quality dataset from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/wine+quality).
 
 <p align="center">
 <img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/wine.gif" width="576" height="417" border="10"/>
 </p>
+
+## Table of content
+
+1. [Wine Data :wine_glass:]()
+2. [Data Approach]()
+    1. [Conclusion]()
+3. [Regression Algorithms]()
+    1. [Random Forest Regressor]()
+    1. [KNeighbors Regressor]()
+    1. [Epsilon-Support Vector Regression]()
+    1. [Conclusion]()
+4. [Neural Network ]()
+    1. [Preprocessing]()
+    1. [The Model]()
+    1. [Compile and fit]()
+5. [References]()
 
 ## Wine Data :wine_glass:
 
