@@ -24,10 +24,17 @@ In the same way, the metric R-squared is a statistical measure that represents h
 
 Other important value in theses tables is the regression coefficient (coef). This statistical measure estimates the change in the mean response per unit increase in X (independet variables) when the rest of variables are held constant. For instance, if volatile acidity  increases by 1, and all other variables don't change, quality variable (dependent variable) decreases by about 1.86 on average. Also, if p-value is less than 0.05 for that variable, the relationship between the predictor and the response is statistically significant, which means that variable has a role in the wine quality.
 
-![OLS Regression Results for red wines](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/Mult_regression_redwine.png)
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/Mult_regression_redwine.png" width="761" height="576" border="10"/>
+</p>
+
 ###### OLS Regression Results for red wines
 
-![OLS Regression Results for white wines](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/Mult_regression_whitewine.png)
+
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/Mult_regression_whitewine.png" width="761" height="576" border="10"/>
+</p>
+
 ###### OLS Regression Results for white wines
 
 ### Conclusion
@@ -49,7 +56,9 @@ KNeighbors Regressor can be used when data labels are continuous rather than dis
 ### Epsilon-Support Vector Regression
 Although Support Vector Machines aren't well known in regression problems but, in this case, the results aren't too different from other algorithms.
 
-![Error table](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/error_table_ML.png)
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/error_table_ML.png" width="374" height="338" border="10"/>
+</p>
 
 ### Conclusion
 
@@ -61,7 +70,9 @@ Just looking at these results, it could be determined that for both the red wine
 
 The final method to predict wine's quality is a Supervised Neural Network. Firstly, I tried two different NN's, one for the red wine dataset and another for the white one. But, how statistical metrics seem to be worse (how we can see in the table below), I decided to create just one model with both datasets together.
 
-![NN Error table](https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/NN_error.png)
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/NN_error.png" width="312" height="83" border="10"/>
+</p>
 
 To start, a preprocessing of the data is necessary. In this way, a `LabelEncoder()` function was executed on the variable "type", created prior to the union of the two datasets. After that, all the data were standardized with the `StandardScaler()` function. This function of the Sklearn library standardizes the data by eliminating the mean and scaling the data so that its variance is equal to 1. Otherwise, the data would be too disparate for the neural network to train.
 
@@ -84,15 +95,37 @@ Returning to the use of the Dense layer, I decided use it in all the layers due 
 <img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/NNmodel_rep.png" width="836" height="765" border="10"/>
 </p>
 
-Another characteristic of this model is the presence of regularizers in the input layer. regularizers apply constraints to the parameters of the layer or activity during their optimization and add it to the loss function.
+Another characteristic of this model is the presence of regularizers in the input layer. Regularizers apply constraints to the parameters of the layer or activity during their optimization and add it to the loss function.
 
 Finally, this model has in all its layers with ReLU-type activation functions. The rectified linear activation function or ReLU is a function that will output the input directly if it is positive, otherwise, it will output zero. This makes the model easier to train and often achieves better performance.
+
+### Compile and fit
+
+The `compile()` method takes a list of metrics to evaluate the model during de `fit()` phase. For this model, the loss function, which purpose is "to compute the quantity that a model should seek to minimize during training", is measured with mean squares error. The optimizer implements the Adam algorithm which is a stochastic gradient descent method and, the last argument is the metrics. In this case, I use the mean absolute error that quantifies the precision of a prediction technique.
+
+```
+model.compile(loss= 'mse',
+              optimizer= 'adam',
+              metrics=['mae'])
+```
+After fitting and using the `TensorBoard()` function as a callbacks argument inside `fit()` function, several graphs are obtained as a summary of the training that we see below:
+
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/epoch_loss.png" width="1274" height="510" border="10"/>
+</p>
+
+<p align="center">
+<img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/epoch_mae.png" width="1274" height="510" border="10"/>
+</p>
+
+Finally, to save the model architecture and the weights, I use the `save()` method so, it includes everything obout the model: weights, architecture, compilation details (loss and metrics) and, optimizer state. In this way, I can load and use the model directly. Further, it seems to be the preferred way for saving and loading a Keras model
 
 ## References
 
 1. [Comp.ai.neural-nets FAQ.](http://www.faqs.org/faqs/ai-faq/neural-nets/part1/preamble.html) 
 2. Er, Y., & Atasoy, A. (2016). The classification of white wine and red wine according to their physicochemical qualities. International Journal of Intelligent Systems and Applications in Engineering, 23-26. Available in: [https://www.ijisae.org/IJISAE/article/view/914](https://www.ijisae.org/IJISAE/article/view/914)
 3. Gupta, Y. (2018). Selection of important features and predicting wine quality using machine learning techniques. Procedia Computer Science, 125, 305-312. Available in: [https://www.sciencedirect.com/science/article/pii/S1877050917328053](https://www.sciencedirect.com/science/article/pii/S1877050917328053)
-4. Lee, S., Park, J., & Kang, K. (2015, September). Assessing wine quality using a decision tree. In 2015 IEEE International Symposium on Systems Engineering (ISSE) (pp. 176-178). IEEE. Available in: [https://ieeexplore.ieee.org/abstract/document/7302752](https://ieeexplore.ieee.org/abstract/document/7302752)
-5. P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009. Available in: [https://archive.ics.uci.edu/ml/datasets/wine+quality](https://archive.ics.uci.edu/ml/datasets/wine+quality)
-6. Scikit-learn: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011. Available in: [https://scikit-learn.org/stable/user_guide.html](https://scikit-learn.org/stable/user_guide.html)
+4. [Keras API reference](https://keras.io/api/)
+5. Lee, S., Park, J., & Kang, K. (2015, September). Assessing wine quality using a decision tree. In 2015 IEEE International Symposium on Systems Engineering (ISSE) (pp. 176-178). IEEE. Available in: [https://ieeexplore.ieee.org/abstract/document/7302752](https://ieeexplore.ieee.org/abstract/document/7302752)
+6. P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009. Available in: [https://archive.ics.uci.edu/ml/datasets/wine+quality](https://archive.ics.uci.edu/ml/datasets/wine+quality)
+7. Scikit-learn: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011. Available in: [https://scikit-learn.org/stable/user_guide.html](https://scikit-learn.org/stable/user_guide.html)
