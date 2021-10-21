@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from tensorflow.keras.models import load_model
+from src.main import model
  
 # load model
-model = load_model('static/model.h5')
+model
