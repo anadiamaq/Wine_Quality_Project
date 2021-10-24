@@ -1,4 +1,8 @@
-from main import app
-from config import PORT
+from app import app
+from flask import Flask
+import os
+from fetch import *
 
-app.run("0.0.0.0", PORT, debug=True)
+if __name__ == "__main__":
+
+    app.run("0.0.0.0", port=os.getenv('PORT'), debug=True)
