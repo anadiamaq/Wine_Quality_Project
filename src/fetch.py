@@ -2,6 +2,7 @@ from app import app
 import pandas as pd
 from flask import request
 from prep_function import preprocess
+import json
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.regularizers import l2
@@ -15,7 +16,7 @@ def title():
 
 @app.route('/predict', methods=['POST'])
 def predict_authentication():
-    data = pd.DataFrame([request.json])
+    data = pd.DataFrame([json.loads(request.json)])
     pred = preprocess(data)
     model = Sequential()
     model.add(Dense(12, activation='relu',
@@ -26,7 +27,7 @@ def predict_authentication():
                   optimizer='adam',
                   metrics=['mae'])
     model.load_weights('weights.h5')
-    print(model.get_weights())
     prediction = model.predict(pred)
-    print(prediction)
-    return {"result": int(prediction[0][0])}
+    dic = {"result": int(prediction[0][0])}
+    result = str(dic['result'])
+    return result
