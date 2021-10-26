@@ -10,19 +10,72 @@ Wine-drinkers usually agree that wines may be ranked by quality, but it's known 
 
 ## Table of content
 
-1. [Wine Data :wine_glass:]()
-2. [Data Approach]()
-    1. [Conclusion]()
-3. [Regression Algorithms]()
-    1. [Random Forest Regressor]()
-    1. [KNeighbors Regressor]()
-    1. [Epsilon-Support Vector Regression]()
-    1. [Conclusion]()
-4. [Neural Network ]()
-    1. [Preprocessing]()
-    1. [The Model]()
-    1. [Compile and fit]()
-5. [References]()
+1. [Wine Data :wine_glass:](##-wine-data-:wine_glass)
+2. [Data Approach](##-data-approach)
+    * [Conclusion](###-conclusion)
+3. [Regression Algorithms](##-regression-algorithms)
+    * [Random Forest Regressor](###-random-forest-regressor)
+    * [KNeighbors Regressor](###-kneighbors-regressor)
+    * [Epsilon-Support Vector Regression](###-epsilon-support-vector-regression)
+    * [Conclusion](###-conclusion)
+4. [Neural Network](##-neural-network)
+    * [Preprocessing](###-preprocessing)
+    * [The Model](###-the-model)
+    * [Compile and fit](###-compile-and-fit)
+5. [Api service](##-api-service)
+6. [References](##-references)
+
+## Folder Structure
+
+├── LICENSE
+├── ML_models.ipynb
+├── Multiple_Regression.ipynb     
+├── Neural_Network.ipynb
+├── Neural_Network_redwine.ipynb  
+├── Neural_Network_whitewine.ipynb
+├── README.md
+├── data
+│   ├── redwine-qa.csv
+│   ├── whitewine-qa.csv
+│   ├── wine-qa.csv
+│   ├── winequality-red.csv
+│   └── winequality-white.csv
+├── datasets_cleaning.ipynb
+├── images
+│   ├── Mult_regression_redwine.png
+│   ├── Mult_regression_whitewine.png
+│   ├── NN_error.png
+│   ├── NNmodel_rep.png
+│   ├── data_dist.png
+│   ├── epoch_loss.png
+│   ├── epoch_mae.png
+│   ├── error_table_ML.png
+│   ├── st-wine.jpg
+│   └── wine.gif
+├── logs
+├── requirements.txt
+├── src
+│   ├── __pycache__
+│   │   ├── __init__.cpython-38.pyc
+│   │   ├── app.cpython-38.pyc
+│   │   ├── config.cpython-38.pyc
+│   │   ├── fetch.cpython-38.pyc
+│   │   ├── main.cpython-38.pyc
+│   │   ├── prep_function.cpython-38.pyc
+│   │   └── server.cpython-38.pyc
+│   ├── app.py
+│   ├── config.py
+│   ├── encoder.pkl
+│   ├── fetch.py
+│   ├── model.h5
+│   ├── pickles_prep.py
+│   ├── prep_function.py
+│   ├── scaler.pkl
+│   ├── server.py
+│   └── weights.h5
+└── streamlit-app
+    ├── app.py
+    └── config.py
 
 ## Wine Data :wine_glass:
 
@@ -136,7 +189,18 @@ After fitting and using the `TensorBoard()` function as a callbacks argument ins
 <img src="https://github.com/anadiamaq/Wine_Quality_Project/blob/develop/images/epoch_mae.png" width="1274" height="510" border="10"/>
 </p>
 
-Finally, to save the model architecture and the weights, I use the `save()` method so, it includes everything obout the model: weights, architecture, compilation details (loss and metrics) and, optimizer state. In this way, I can load and use the model directly. Further, it seems to be the preferred way for saving and loading a Keras model
+Finally, to save the model weights, I use the `save_weights()` method. In this way, I can use it to deploy the model later in Flask.
+
+## Api service
+
+Before to run the API, it is necesary to run the `pickes_prep.py` file. This file creates two pickles files that are useful to transform the data that the user will enter, so that they are readable by the model.  
+
+To view the app it is only necessary to run the following files:
+
+- `python3 server.py`
+- `streamlit run app.py`
+
+In a python environment with the previous installation of the packages found in the requirements.txt file.
 
 ## References
 
