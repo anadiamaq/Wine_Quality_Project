@@ -25,6 +25,58 @@ Wine-drinkers usually agree that wines may be ranked by quality, but it's known 
 5. [Api service](##-api-service)
 6. [References](##-references)
 
+```
+├── LICENSE
+├── ML_models.ipynb`
+├── Multiple_Regression.ipynb`
+├── Neural_Network.ipynb`
+├── Neural_Network_redwine.ipynb
+├── Neural_Network_whitewine.ipynb
+├── README.md
+├── data
+│   ├── redwine-qa.csv
+│   ├── whitewine-qa.csv
+│   ├── wine-qa.csv
+│   ├── winequality-red.csv
+│   └── winequality-white.csv
+├── datasets_cleaning.ipynb
+├── images
+│   ├── Mult_regression_redwine.png
+│   ├── Mult_regression_whitewine.png
+│   ├── NN_error.png
+│   ├── NNmodel_rep.png
+│   ├── data_dist.png
+│   ├── epoch_loss.png
+│   ├── epoch_mae.png
+│   ├── error_table_ML.png
+│   ├── st-wine.jpg
+│   └── wine.gif
+├── logs
+├── requirements.txt
+├── src
+│   ├── __pycache__
+│   │   ├── __init__.cpython-38.pyc
+│   │   ├── app.cpython-38.pyc
+│   │   ├── config.cpython-38.pyc
+│   │   ├── fetch.cpython-38.pyc
+│   │   ├── main.cpython-38.pyc
+│   │   ├── prep_function.cpython-38.pyc
+│   │   └── server.cpython-38.pyc
+│   ├── app.py
+│   ├── config.py
+│   ├── encoder.pkl
+│   ├── fetch.py
+│   ├── model.h5
+│   ├── pickles_prep.py
+│   ├── prep_function.py
+│   ├── scaler.pkl
+│   ├── server.py
+│   └── weights.h5
+└── streamlit-app
+    ├── app.py
+    └── config.py
+```
+
 ## Wine Data :wine_glass:
 
 As I said, the dataset is publicly available for research purposes on UCI website. Here, there are two datasets, the red wine dataset contains 1599 instances with 11 features and the white wine dataset, 4898 instances and the same 11 feature.
