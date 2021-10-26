@@ -10,7 +10,7 @@ Wine-drinkers usually agree that wines may be ranked by quality, but it's known 
 
 ## Table of content
 
-1. [Wine Data :wine_glass:](##-wine-data-:wine_glass)
+1. [Wine Data :wine_glass:](##-wine-data:wine_glass)
 2. [Data Approach](##-data-approach)
     * [Conclusion](###-conclusion)
 3. [Regression Algorithms](##-regression-algorithms)
@@ -24,58 +24,6 @@ Wine-drinkers usually agree that wines may be ranked by quality, but it's known 
     * [Compile and fit](###-compile-and-fit)
 5. [Api service](##-api-service)
 6. [References](##-references)
-
-## Folder Structure
-
-├── LICENSE
-├── ML_models.ipynb
-├── Multiple_Regression.ipynb     
-├── Neural_Network.ipynb
-├── Neural_Network_redwine.ipynb  
-├── Neural_Network_whitewine.ipynb
-├── README.md
-├── data
-│   ├── redwine-qa.csv
-│   ├── whitewine-qa.csv
-│   ├── wine-qa.csv
-│   ├── winequality-red.csv
-│   └── winequality-white.csv
-├── datasets_cleaning.ipynb
-├── images
-│   ├── Mult_regression_redwine.png
-│   ├── Mult_regression_whitewine.png
-│   ├── NN_error.png
-│   ├── NNmodel_rep.png
-│   ├── data_dist.png
-│   ├── epoch_loss.png
-│   ├── epoch_mae.png
-│   ├── error_table_ML.png
-│   ├── st-wine.jpg
-│   └── wine.gif
-├── logs
-├── requirements.txt
-├── src
-│   ├── __pycache__
-│   │   ├── __init__.cpython-38.pyc
-│   │   ├── app.cpython-38.pyc
-│   │   ├── config.cpython-38.pyc
-│   │   ├── fetch.cpython-38.pyc
-│   │   ├── main.cpython-38.pyc
-│   │   ├── prep_function.cpython-38.pyc
-│   │   └── server.cpython-38.pyc
-│   ├── app.py
-│   ├── config.py
-│   ├── encoder.pkl
-│   ├── fetch.py
-│   ├── model.h5
-│   ├── pickles_prep.py
-│   ├── prep_function.py
-│   ├── scaler.pkl
-│   ├── server.py
-│   └── weights.h5
-└── streamlit-app
-    ├── app.py
-    └── config.py
 
 ## Wine Data :wine_glass:
 
@@ -151,7 +99,7 @@ To start, a preprocessing of the data is necessary. In this way, a `LabelEncoder
 
 ```
 model = Sequential()
-model.add(Dense(12, activation='relu', input_shape=(12,),kernel_regularizer=regularizers.l2(0.01)))
+model.add(Dense(12, activation='relu', input_shape=(12,),kernel_regularizer='l2'))
 model.add(Dense(7, activation='relu'))
 model.add(Dense(1, activation='relu'))
 ```
