@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 BACKEND_URL = os.environ.get("BACKEND_URL")
-response = requests.get(f'{BACKEND_URL}/predict')
 
 st.markdown(
     "<h1 style='color:#56070C; text-align:center; margin-bottom:40px' >Wine Quality Project</h1>", unsafe_allow_html=True
@@ -67,7 +66,7 @@ with st.form(key='my_form'):
 
     print(data_json)
 
-    x = requests.post(" http://localhost:5000/predict", json=data_json)
+    x = requests.post(f'{BACKEND_URL}/predict', json=data_json)
 
     print(x.text)
     if submit == True:
