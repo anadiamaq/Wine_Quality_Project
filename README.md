@@ -10,7 +10,7 @@ Wine-drinkers usually agree that wines may be ranked by quality, but it's known 
 
 ## Table of content
 
-1. [Wine Data :wine_glass:](##-wine-data:wine_glass)
+1. [Wine Data :wine_glass:](##-wine-data:wine_glass:)
 2. [Data Approach](##-data-approach)
     * [Conclusion](###-conclusion)
 3. [Regression Algorithms](##-regression-algorithms)
@@ -24,6 +24,8 @@ Wine-drinkers usually agree that wines may be ranked by quality, but it's known 
     * [Compile and fit](###-compile-and-fit)
 5. [Api service](##-api-service)
 6. [References](##-references)
+
+## Folder Structure
 
 ```
 ├── LICENSE
