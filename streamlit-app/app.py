@@ -17,7 +17,6 @@ with st.form(key='my_form'):
 
     with col1:
 
-        # with st.form(key='my_form'):
         alcohol = st.number_input(
             label='Alcohol (vol. %)', min_value=3.5, max_value=15.0, format="%.1f")
 
