@@ -2,8 +2,13 @@ import streamlit as st
 import pandas as pd
 import requests
 import json
+import os
+from dotenv import load_dotenv
 
-response = requests.get("http://localhost:5000/predict")
+
+load_dotenv()
+BACKEND_URL = os.environ.get("BACKEND_URL")
+response = requests.get(f'{BACKEND_URL}/predict')
 
 st.markdown(
     "<h1 style='color:#56070C; text-align:center; margin-bottom:40px' >Wine Quality Project</h1>", unsafe_allow_html=True
